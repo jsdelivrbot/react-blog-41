@@ -9,8 +9,8 @@ import { createPost } from '../actions';
 class PostsNew extends Component {
 
     renderField(field) {
-        const { meta: {touched, error} } = field; //why is this in braces..? oh wait nvm think about it
-        //we're using DESTRUCTURING to pull off meta from field, then touched and error from meta
+        const { meta: {touched, error} } = field; //Braces are for DESTRUCTURING to get meta from field, then touched and error from meta
+
 
         const className = `form-group ${touched && error ? 'has-danger' : ""}`;
 
@@ -19,9 +19,6 @@ class PostsNew extends Component {
         //field.input is an object containing props and event handlers (e.g. onChange, onBlur, onFocus, input value,
         //etc) The "..." replaces having to do:
         // onChange={field.input.onChange} onFocus={field.input.onFocus} onBlur= (etc)
-        console.log(field);
-
-
         return (
             <div className={className}>
                 <label>{field.label}</label>
