@@ -4,11 +4,11 @@ import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import promise from 'redux-promise';
-import PostsShow from './components/posts_show';
 
 //import App from './components/app'; we don't need this anymore since there's no "central" component (we're using routes!)
 //we also deleted components/app.js
 
+import PostsShow from './components/posts_show';
 import reducers from './reducers';
 import PostsIndex from './components/posts_index';
 import PostsNew from './components/posts_new';

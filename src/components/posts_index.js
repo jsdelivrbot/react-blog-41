@@ -1,7 +1,8 @@
+import _ from 'lodash';
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
-import { fetchPosts } from "../actions/index";
-import _ from 'lodash';
+import { fetchPosts, selectPost, deselectPost } from "../actions/index";
+import selectedPostsSelector from "../selectors/selected_posts";
 import { Link } from 'react-router-dom';
 
 
@@ -17,10 +18,46 @@ class PostsIndex extends Component {
         this.props.fetchPosts();
     }
 
+
+    onCheckboxChange(event, id){
+        if (event.target.checked){
+            console.log("checked");
+            this.props.selectPost(id);
+        } else {
+            console.log("unchecked");
+            this.props.deselectPost(id);
+        }
+    }
+
+
+    renderSelectedPosts(){
+
+        console.log("rendering selected posts", this.props.selectedPosts);
+
+
+        return _.map(this.props.selectedPosts, post=> {
+            return (
+                <li className="list-group-item" key={post.id}>
+                    <Link to={`/posts/${post.id}`}>
+                        {post.title}
+                    </Link>
+                </li>
+            )
+        })
+    }
+
+
     renderPosts(){
         return _.map(this.props.posts, post => {
             return (
                 <li className="list-group-item" key={post.id}>
+
+                    <input
+                        type="checkbox"
+                        defaultChecked={this.props.selectedPostIds[post.id]? true : false} //stays checked when you nav away then back
+                        onClick={(event) =>  this.onCheckboxChange(event, post.id) }
+                    />
+
                     <Link to={`/posts/${post.id}`}>
                         {post.title}
                     </Link>
@@ -29,8 +66,8 @@ class PostsIndex extends Component {
         }); //lodash map to use on objects
     }
 
+
     render(){
-        //console.log("Posts:", this.props.posts);
         return (
             <div>
                 <div className="text-xs-right">
@@ -38,22 +75,30 @@ class PostsIndex extends Component {
                         New Post
                     </Link>
                 </div>
+                <h3>Selected Posts</h3>
+                <ul className="list-group">
+                    {this.renderSelectedPosts()}
+                </ul>
                 <h3>Posts</h3>
                 <ul className="list-group">
                     {this.renderPosts()}
                 </ul>
             </div>
-        );
+        )
     }
 }
 
 function mapStateToProps(state){
     //This gets called before render()
-    console.log("state:", state);
-    return { posts: state.posts };
+    console.log("state in mapStateToProps:", state);
+    return {
+        posts: state.posts,
+        selectedPostIds: state.selectedPostIds,
+        selectedPosts: selectedPostsSelector(state)
+    }
 }
 
-export default connect(mapStateToProps, { fetchPosts })(PostsIndex);
+export default connect(mapStateToProps, { fetchPosts, selectPost, deselectPost })(PostsIndex);
 //rather than defining a separate function (mapDispatchToProps), we'll pass fetchPosts as an object
 // i.e. {fetchPosts: fetchPosts } which is == { fetchPosts }
 // this is a shortcut

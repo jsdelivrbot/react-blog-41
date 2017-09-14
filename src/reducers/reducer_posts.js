@@ -30,7 +30,7 @@ export default function(state={}, action) { //initial (blank) state object
         case FETCH_POSTS:
             //console.log(action.payload.data);
             //use lodash to make our array of records into an object
-            console.log("action:", _.mapKeys(action.payload.data, 'id'));
+            //console.log("action:", _.mapKeys(action.payload.data, 'id'));
             return _.mapKeys(action.payload.data, 'id');
 
         default:
