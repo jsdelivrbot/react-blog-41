@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { fetchPosts, selectPost, deselectPost } from "../actions/index";
 import selectedPostsSelector from "../selectors/selected_posts";
 import { Link } from 'react-router-dom';
+import Modal from './modal';
 
 
 class PostsIndex extends Component {
@@ -75,14 +76,19 @@ class PostsIndex extends Component {
                         New Post
                     </Link>
                 </div>
+
                 <h3>Selected Posts</h3>
                 <ul className="list-group">
                     {this.renderSelectedPosts()}
                 </ul>
+                <hr/>
                 <h3>Posts</h3>
                 <ul className="list-group">
                     {this.renderPosts()}
                 </ul>
+                <Modal>
+                    <p>some text</p>
+                </Modal>
             </div>
         )
     }
@@ -95,6 +101,7 @@ function mapStateToProps(state){
         posts: state.posts,
         selectedPostIds: state.selectedPostIds,
         selectedPosts: selectedPostsSelector(state)
+        //need to pass state to the selector
     }
 }
 

@@ -2,3 +2,18 @@ form a {
 /*    anchor tag in a form element since Link tags do render as anchor tags*/
     margin-left: 5px;
 }
+
+body .modal {
+    position: fixed;
+    top: 40px;
+    left: 40px;
+    right: 40px;
+    bottom: 40px;
+    border: 1px solid #ccc;
+    background: #fff;
+    overflow: auto;
+    border-radius: 4px;
+    outline: none;
+    padding: 20px;
+    display: block;
+}

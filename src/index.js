@@ -13,7 +13,6 @@ import reducers from './reducers';
 import PostsIndex from './components/posts_index';
 import PostsNew from './components/posts_new';
 
-const createStoreWithMiddleware = applyMiddleware(promise)(createStore);
 
 
 //Our router is here :-)
